@@ -1,7 +1,7 @@
 #Funçoes para Processamento de Listas e Tuplos
 
 #1.  Dada uma lista de pares, produzir um par com as listas dos primeiros e segundos elementos desses pares.
-# separar ([(a1, b1),  ... (an, bn)]) = ([a1,  ... an], [b1, ... bn]
+# Separar ([(a1, b1),  ... (an, bn)]) = ([a1,  ... an], [b1, ... bn]
 def separar(list):
     if list == []:
         return [], []
@@ -11,7 +11,7 @@ def separar(list):
     return [a]+listA, [b]+listB #Append current to all next ones
 
 
-#2.  Dada uma lista l e um elemento x, retorna um par formado pela lista dos elementos deldiferentes dexe pelo n ́umero de ocorrencias x em l.
+#2.  Dada uma lista l e um elemento x, retorna um par formado pela lista dos elementos de l diferentes de x e pelo numero de ocorrencias x em l.
 def remove_and_count(list,elem):
     if list == []:
         return [], 0
@@ -22,10 +22,30 @@ def remove_and_count(list,elem):
     else:
         return [list[0]] + listResult, count #Add to the list result the current one (because we dont wanna remove it)
 
+#3. Dada uma lista, retorna o numero de ocorrencias de cada elemento, na forma de uma lista de pares (elemento,contagem).
+#Nota: Haveria uma outra maneira de realizar este exercicio sem ter que recorrer aquele for, mas teria que passar à função mais do que apenas a lista
+def count_occurences(lista):
+    if lista ==[]:
+        return []
+
+    counter = 1
+    for i in range(len(lista[1:])):
+        if lista[i] == lista[0]:
+            counter += 1
+        
+    aux = [(lista[0],counter)]
+    lista = [element for element in lista if element != lista[0]] #List Comprehension :O
+
+    return aux + count_occurences(lista)
+
+
 
 if __name__ == "__main__":
     #1
-    print(separar([[1,2],[3,4],[5,6]]))
+    print("1) " + str(separar([[1,2],[3,4],[5,6]])))
 
     #2
-    print(remove_and_count([1,3,2,3,3,3],3))
+    print("2) " + str(remove_and_count([1,3,2,3,3,3],3)))
+
+    #3
+    print("3) " + str(count_occurences([1,1,2,3,2,1])))
