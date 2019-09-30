@@ -107,8 +107,8 @@ def search_path(c1,c2,strategy):
     my_tree.strategy = strategy
     return my_tree.search()
 
-print(t.search(8)) #Added argument for Ex 4
-print(t.length) #Added for Ex 3.
-print(t.terminal) #Added for Ex5
-print(t.non_terminal) #Added for Ex5
+print(t.search(100)) #Added argument for Ex 4
+print("Tree Length: " + str(t.length)) #Added for Ex 3.
+print("Terminal Nodes: " + str(t.terminal)) #Added for Ex5
+print("Non Terminal Nodes: " + str(t.non_terminal)) #Added for Ex5
 
