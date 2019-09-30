@@ -107,7 +107,7 @@ def search_path(c1,c2,strategy):
     my_tree.strategy = strategy
     return my_tree.search()
 
-print(t.search(9)) #Added argument for Ex 4
+print(t.search(8)) #Added argument for Ex 4
 print(t.length) #Added for Ex 3.
 
 
