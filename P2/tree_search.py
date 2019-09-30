@@ -81,9 +81,13 @@ class SearchTree:
         root = SearchNode(problem.initial, None,0)
         self.open_nodes = [root]
         self.strategy = strategy
+
         self.length = 0 #Added for Ex 3.
+
         self.terminal = 0 #Added for Ex 5
         self.non_terminal = 1 #Added for Ex 5
+
+        self.ramification = None #Added for Ex 6
 
 
     # obter o caminho (sequencia de estados) da raiz ate um no
@@ -99,6 +103,7 @@ class SearchTree:
         while self.open_nodes != []:
             node = self.open_nodes.pop(0)
             if self.problem.goal_test(node.state):
+                self.ramification = (self.terminal + self.non_terminal -1)/self.non_terminal #-1 pq queremos retirar a raiz. Added for Ex 6
                 return self.get_path(node)
             lnewnodes = []
             for a in self.problem.domain.actions(node.state):
@@ -112,7 +117,7 @@ class SearchTree:
             if lnewnodes == []: #Added for Ex 5.
                 self.terminal += 1 #Added for Ex 5.
                 self.non_terminal -= 1 #Added for Ex 5.
-                
+
         return None
 
     # juntar novos nos a lista de nos abertos de acordo com a estrategia
