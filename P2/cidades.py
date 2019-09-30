@@ -109,5 +109,6 @@ def search_path(c1,c2,strategy):
 
 print(t.search(8)) #Added argument for Ex 4
 print(t.length) #Added for Ex 3.
-
+print(t.terminal) #Added for Ex5
+print(t.non_terminal) #Added for Ex5
 
