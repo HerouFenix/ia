@@ -57,9 +57,10 @@ class SearchProblem:
 
 # Nos de uma arvore de pesquisa
 class SearchNode:
-    def __init__(self,state,parent): 
+    def __init__(self,state,parent,depth): 
         self.state = state
         self.parent = parent
+        self.depth = depth #Added for Ex 2.
     
     def in_parent(self,state): #Added to prevent infinite loop created by visiting parent nodes over and over again (Ex 1.)
         if self.parent == None:
@@ -67,7 +68,7 @@ class SearchNode:
         return self.state == state or self.parent.in_parent(state)
 
     def __str__(self):
-        return "no(" + str(self.state) + "," + str(self.parent) + ")"
+        return  f"no({self.state},{self.depth})" #Changed for Ex 2.
     def __repr__(self):
         return str(self)
 
@@ -77,16 +78,16 @@ class SearchTree:
     # construtor
     def __init__(self,problem, strategy='breadth'):
         self.problem = problem
-        root = SearchNode(problem.initial, None)
+        root = SearchNode(problem.initial, None,0)
         self.open_nodes = [root]
         self.strategy = strategy
 
     # obter o caminho (sequencia de estados) da raiz ate um no
     def get_path(self,node):
         if node.parent == None:
-            return [node.state]
+            return [node] #Changed for Ex 2.
         path = self.get_path(node.parent)
-        path += [node.state]
+        path += [node] #Changed for Ex 2. (so it displays the breadth aswell)
         return(path)
 
     # procurar a solucao
@@ -99,7 +100,7 @@ class SearchTree:
             for a in self.problem.domain.actions(node.state):
                 newstate = self.problem.domain.result(node.state,a)
                 if not node.in_parent(newstate): #Added to prevent infinite loop created by visiting parent nodes over and over again (Ex 1.)
-                    lnewnodes += [SearchNode(newstate,node)]
+                    lnewnodes += [SearchNode(newstate,node,node.depth+1)] #Added node.depth+1 for Ex 2.
             self.add_to_open(lnewnodes)
         return None
 
