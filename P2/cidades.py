@@ -114,7 +114,7 @@ cidades_portugal = Cidades(
 
 
 p = SearchProblem(cidades_portugal,'Braga','Faro')
-t = SearchTree(p,'uniform') #Changed this to depth (Ex 1.) ; Changed this to Uniform (ex 9.)
+t = SearchTree(p,'uniform') #Changed this to depth (Ex 1.) ; Changed this to Uniform (ex 10.)
 
 # Atalho para obter caminho de c1 para c2 usando strategy:
 def search_path(c1,c2,strategy):
@@ -128,7 +128,7 @@ print("Tree Length: " + str(t.length)) #Added for Ex 3.
 print("Terminal Nodes: " + str(t.terminal)) #Added for Ex5
 print("Non Terminal Nodes: " + str(t.non_terminal)) #Added for Ex5
 print("Ramification ratio: " + str(t.ramification)) #Added for Ex6
-print("Path Cost: " + str(t.cost)) #Added for Ex8
+print("Path Cost: " + str(t.cost)) #Added for Ex9
 
 
 

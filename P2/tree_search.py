@@ -112,9 +112,9 @@ class SearchTree:
             for a in self.problem.domain.actions(node.state):
                 newstate = self.problem.domain.result(node.state,a)
                 if not node.in_parent(newstate) and node.depth < limit: #Added to prevent infinite loop created by visiting parent nodes over and over again (Ex 1.) ; Added for Ex 4 (and node.depth (...))
-                    lnewnodes += [SearchNode(newstate,node,node.depth+1,node.cost+self.problem.domain.cost(node.state,a))] #Added node.depth+1 for Ex 2. ; Added node.cost+(...) for Ex 7.
+                    lnewnodes += [SearchNode(newstate,node,node.depth+1,node.cost+self.problem.domain.cost(node.state,a))] #Added node.depth+1 for Ex 2. ; Added node.cost+(...) for Ex 8.
                     self.length += 1 #Added for Ex 3.
-                    self.cost += self.problem.domain.cost(node.state,a)  #Added for Ex 8.
+                    self.cost += self.problem.domain.cost(node.state,a)  #Added for Ex 9.
             self.add_to_open(lnewnodes)
 
             self.non_terminal += len(lnewnodes) #Added for Ex 5.
@@ -130,6 +130,6 @@ class SearchTree:
             self.open_nodes.extend(lnewnodes)
         elif self.strategy == 'depth':
             self.open_nodes[:0] = lnewnodes
-        elif self.strategy == 'uniform': #Implemented for Ex 9
+        elif self.strategy == 'uniform': #Implemented for Ex 10
             self.open_nodes.extend(lnewnodes)
             self.open_nodes.sort(key = lambda node: node.cost)
