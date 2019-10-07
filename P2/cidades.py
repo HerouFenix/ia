@@ -128,6 +128,7 @@ print("Tree Length: " + str(t.length)) #Added for Ex 3.
 print("Terminal Nodes: " + str(t.terminal)) #Added for Ex5
 print("Non Terminal Nodes: " + str(t.non_terminal)) #Added for Ex5
 print("Ramification ratio: " + str(t.ramification)) #Added for Ex6
+print("Path Cost: " + str(t.cost)) #Added for Ex8
 
 
 

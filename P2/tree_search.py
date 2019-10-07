@@ -90,6 +90,8 @@ class SearchTree:
 
         self.ramification = None #Added for Ex 6
 
+        self.cost = 0   #Added for Ex8.
+
 
     # obter o caminho (sequencia de estados) da raiz ate um no
     def get_path(self,node):
@@ -112,6 +114,7 @@ class SearchTree:
                 if not node.in_parent(newstate) and node.depth < limit: #Added to prevent infinite loop created by visiting parent nodes over and over again (Ex 1.) ; Added for Ex 4 (and node.depth (...))
                     lnewnodes += [SearchNode(newstate,node,node.depth+1,node.cost+self.problem.domain.cost(node.state,a))] #Added node.depth+1 for Ex 2. ; Added node.cost+(...) for Ex 7.
                     self.length += 1 #Added for Ex 3.
+                    self.cost += self.problem.domain.cost(node.state,a)  #Added for Ex 8.
             self.add_to_open(lnewnodes)
 
             self.non_terminal += len(lnewnodes) #Added for Ex 5.
