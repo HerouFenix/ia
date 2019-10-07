@@ -114,7 +114,7 @@ cidades_portugal = Cidades(
 
 
 p = SearchProblem(cidades_portugal,'Braga','Faro')
-t = SearchTree(p,'depth') #Changed this to depth (Ex 1.)
+t = SearchTree(p,'uniform') #Changed this to depth (Ex 1.) ; Changed this to Uniform (ex 9.)
 
 # Atalho para obter caminho de c1 para c2 usando strategy:
 def search_path(c1,c2,strategy):
