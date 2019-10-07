@@ -14,6 +14,8 @@ class Cidades(SearchDomain):
     def __init__(self,connections, coordinates):
         self.connections = connections
         self.coordinates = coordinates
+
+
     def actions(self,cidade):
         actlist = []
         for (C1,C2,D) in self.connections:
@@ -22,12 +24,26 @@ class Cidades(SearchDomain):
             elif (C2==cidade):
                actlist += [(C2,C1)]
         return actlist 
+
+
     def result(self,cidade,action):
         (C1,C2) = action
         if C1==cidade:
             return C2
-    def cost(self, state, action):
-        pass
+
+
+    #Implemented for Ex7
+    def cost(self, cidade, action):
+        (C1,C2) = action
+        if C1!=cidade:
+            return None
+
+        for (c1,c2,dist) in self.connections:
+            if (c1,c2) == action or (c2,c1) == action:
+                return dist
+        
+        return None
+
     def heuristic(self, state, goal_state):
         pass
 
@@ -107,10 +123,11 @@ def search_path(c1,c2,strategy):
     my_tree.strategy = strategy
     return my_tree.search()
 
-print(t.search(100)) #Added argument for Ex 4
+print(t.search(9)) #Added argument for Ex 4
 print("Tree Length: " + str(t.length)) #Added for Ex 3.
 print("Terminal Nodes: " + str(t.terminal)) #Added for Ex5
 print("Non Terminal Nodes: " + str(t.non_terminal)) #Added for Ex5
 print("Ramification ratio: " + str(t.ramification)) #Added for Ex6
+
 
 

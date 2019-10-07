@@ -36,7 +36,7 @@ class SearchDomain(ABC):
         pass
 
     # custo de uma accao num estado
-    @abstractmethod
+    @abstractmethod 
     def cost(self, state, action):
         pass
 
@@ -57,10 +57,11 @@ class SearchProblem:
 
 # Nos de uma arvore de pesquisa
 class SearchNode:
-    def __init__(self,state,parent,depth): 
+    def __init__(self,state,parent,depth,cost): 
         self.state = state
         self.parent = parent
         self.depth = depth #Added for Ex 2.
+        self.cost = cost #Added for Ex 7
     
     def in_parent(self,state): #Added to prevent infinite loop created by visiting parent nodes over and over again (Ex 1.)
         if self.parent == None:
@@ -68,7 +69,7 @@ class SearchNode:
         return self.state == state or self.parent.in_parent(state)
 
     def __str__(self):
-        return  f"no({self.state},{self.depth})" #Changed for Ex 2.
+        return  f"no({self.state},{self.depth},{self.cost})" #Changed for Ex 2.
     def __repr__(self):
         return str(self)
 
@@ -78,7 +79,7 @@ class SearchTree:
     # construtor
     def __init__(self,problem, strategy='breadth'):
         self.problem = problem
-        root = SearchNode(problem.initial, None,0)
+        root = SearchNode(problem.initial, None,0, 0) #Criação do nó raiz
         self.open_nodes = [root]
         self.strategy = strategy
 
@@ -109,7 +110,7 @@ class SearchTree:
             for a in self.problem.domain.actions(node.state):
                 newstate = self.problem.domain.result(node.state,a)
                 if not node.in_parent(newstate) and node.depth < limit: #Added to prevent infinite loop created by visiting parent nodes over and over again (Ex 1.) ; Added for Ex 4 (and node.depth (...))
-                    lnewnodes += [SearchNode(newstate,node,node.depth+1)] #Added node.depth+1 for Ex 2.
+                    lnewnodes += [SearchNode(newstate,node,node.depth+1,node.cost+self.problem.domain.cost(node.state,a))] #Added node.depth+1 for Ex 2. ; Added node.cost+(...) for Ex 7.
                     self.length += 1 #Added for Ex 3.
             self.add_to_open(lnewnodes)
 
