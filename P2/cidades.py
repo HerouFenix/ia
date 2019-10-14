@@ -118,7 +118,7 @@ cidades_portugal = Cidades(
 
 
 p = SearchProblem(cidades_portugal,'Braga','Faro')
-t = SearchTree(p,'greedy') #Changed this to depth (Ex 1.) ; Changed this to Uniform (ex 10.) ; Changed to Greedy (ex 13)
+t = SearchTree(p,'a*') #Changed this to depth (Ex 1.) ; Changed this to Uniform (ex 10.) ; Changed to Greedy (ex 13) ; Changed to A* (ex 14)
 
 # Atalho para obter caminho de c1 para c2 usando strategy:
 def search_path(c1,c2,strategy):
@@ -127,7 +127,9 @@ def search_path(c1,c2,strategy):
     my_tree.strategy = strategy
     return my_tree.search()
 
-print(t.search(9)) #Added argument for Ex 4
+limit = input("Choose a search limit: ")
+
+print(t.search(int(limit))) #Added argument for Ex 4
 print("Tree Length: " + str(t.length)) #Added for Ex 3.
 print("Terminal Nodes: " + str(t.terminal)) #Added for Ex5
 print("Non Terminal Nodes: " + str(t.non_terminal)) #Added for Ex5
