@@ -136,6 +136,6 @@ print("Non Terminal Nodes: " + str(t.non_terminal)) #Added for Ex5
 print("Ramification ratio: " + str(t.ramification)) #Added for Ex6
 print("Path Cost: " + str(t.cost)) #Added for Ex9
 print("Max Accumulated Cost Nodes: " + str(t.max_accumulated_costs)) #Added for Ex15
-
+print("Average Node Depth: " + str(t.avg_node_depth)) #Added for Ex16
 
 

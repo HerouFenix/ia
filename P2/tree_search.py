@@ -109,6 +109,9 @@ class SearchTree:
 
         self.max_accumulated_costs = [root] # Added for Ex15
 
+        self.all_node_depth = []    #Added for Ex16
+        self.avg_node_depth = 0     #Added for Ex16
+
     # obter o caminho (sequencia de estados) da raiz ate um no
     def get_path(self, node):
         if node.parent == None:
@@ -125,6 +128,9 @@ class SearchTree:
                 # -1 pq queremos retirar a raiz. Added for Ex 6
                 self.ramification = (
                     self.terminal + self.non_terminal - 1)/self.non_terminal
+
+                self.avg_node_depth = sum(self.all_node_depth)/len(self.all_node_depth) #Added for Ex 16
+                
                 return self.get_path(node)
             lnewnodes = []
             for a in self.problem.domain.actions(node.state):
@@ -139,12 +145,17 @@ class SearchTree:
                     self.length += 1  # Added for Ex 3.
                     self.cost += self.problem.domain.cost(node.state, a) # Added for Ex 9.
                     
+                    #Added for Ex 15
                     if node.cost > self.max_accumulated_costs[0].cost:
                         self.max_accumulated_costs = [node]
                     elif node.cost == self.max_accumulated_costs[0].cost and node not in self.max_accumulated_costs:
                         self.max_accumulated_costs.append(node)
 
+                    self.all_node_depth.append(node.depth)
+
+
             self.add_to_open(lnewnodes)
+            
 
             self.non_terminal += len(lnewnodes)  # Added for Ex 5.
             if lnewnodes == []:  # Added for Ex 5.
