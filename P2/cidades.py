@@ -9,6 +9,7 @@
 
 
 from tree_search import *
+import math
 
 class Cidades(SearchDomain):
     def __init__(self,connections, coordinates):
@@ -44,8 +45,11 @@ class Cidades(SearchDomain):
         
         return None
 
-    def heuristic(self, state, goal_state):
-        pass
+    #Implemented for Ex11
+    def heuristic(self, cidade, goal_cidade):
+        x1,y1 = self.coordinates[cidade]
+        x2,y2 = self.coordinates[goal_cidade]
+        return math.hypot(x1-x2, y1-y2)
 
 cidades_portugal = Cidades( 
                     # Ligacoes por estrada
@@ -114,7 +118,7 @@ cidades_portugal = Cidades(
 
 
 p = SearchProblem(cidades_portugal,'Braga','Faro')
-t = SearchTree(p,'uniform') #Changed this to depth (Ex 1.) ; Changed this to Uniform (ex 10.)
+t = SearchTree(p,'greedy') #Changed this to depth (Ex 1.) ; Changed this to Uniform (ex 10.) ; Changed to Greedy (ex 13)
 
 # Atalho para obter caminho de c1 para c2 usando strategy:
 def search_path(c1,c2,strategy):
