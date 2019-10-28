@@ -80,10 +80,19 @@ z.insert(Declaration('damasio', Member('socrates','filosofo')))
 #z.insert(Declaration('darwin', AssocOne('socrates','pai','pericles')))
 #z.insert(Declaration('descartes', AssocOne('socrates','pai','sofronisco')))
 
-print(z.list_associations()) # alinea (a)
-print(z.list_entities()) # alinea (b)
-print(z.list_users()) # alinea (c)
-print(z.list_types()) # alinea (d)
-print(z.list_local_associations("socrates")) # alinea (e)
-print(z.list_relations_by_user("descartes")) # alinea (f)
-print(z.associations_by_user("descartes")) # alinea (g)
+print(z.list_associations()) # alinea 1
+print(z.list_entities()) # alinea 2
+print(z.list_users()) # alinea 3
+print(z.list_types()) # alinea 4
+print(z.list_local_associations("socrates")) # alinea 4
+print(z.list_relations_by_user("descartes")) # alinea 5
+print(z.associations_by_user("descartes")) # alinea 6
+print(z.list_local_associations_and_user("socrates")) #Alinea 8
+print(z.predecessor("vertebrado", "socrates")) #alinea 9
+print(z.predecessor("vertebrado", "filosofo")) #alinea 9
+print(z.predecessor_path("vertebrado", "socrates")) #alinea 10
+print(z.query("socrates","altura")) #alinea 11
+z.show_query_result()
+print(z.query2("homem","mamar")) #alinea 11
+z.show_query_result()
+print(z.query_cancel("socrates","a,tura")) #alinea 11
