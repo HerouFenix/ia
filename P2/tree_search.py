@@ -130,7 +130,7 @@ class SearchTree:
                     self.terminal + self.non_terminal - 1)/self.non_terminal
 
                 self.avg_node_depth = sum(self.all_node_depth)/len(self.all_node_depth) #Added for Ex 16
-                
+
                 return self.get_path(node)
             lnewnodes = []
             for a in self.problem.domain.actions(node.state):
@@ -151,7 +151,7 @@ class SearchTree:
                     elif node.cost == self.max_accumulated_costs[0].cost and node not in self.max_accumulated_costs:
                         self.max_accumulated_costs.append(node)
 
-                    self.all_node_depth.append(node.depth)
+                    self.all_node_depth.append(node.depth) #Added for Ex16
 
 
             self.add_to_open(lnewnodes)
