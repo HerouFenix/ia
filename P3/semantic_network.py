@@ -42,6 +42,16 @@ class Association(Relation):
 # Subclasse Subtype
 
 
+class AssocOne(Relation):
+    def __init__(self, e1, assoc, e2):
+        Relation.__init__(self, e1, assoc, e2)
+
+
+class AssocNum(Relation):
+    def __init__(self, e1, assoc, e2):
+        Relation.__init__(self, e1, assoc, float(e2))
+
+
 class Subtype(Relation):
     def __init__(self, sub, super):
         Relation.__init__(self, sub, "subtype", super)
@@ -180,9 +190,46 @@ class SemanticNetwork:
         descendents = [self.query_down(d.relation.entity1, relation) for d in self.declarations if d.relation.entity2 == entity and (
             isinstance(d.relation, Member) or isinstance(d.relation, Subtype))]
 
-        return [item for sublist in descendents for item in sublist] + self.query_local(e1 = entity, rel = relation)
+        return [item for sublist in descendents for item in sublist] + self.query_local(e1=entity, rel=relation)
 # Funcao auxiliar para converter para cadeias de caracteres listas
 # cujos elementos sejam convertiveis para cadeias de caracteres
+
+    def query_induce(self, entity, relation):
+        suc = self.query_down(entity, relation)
+
+        from collections import Counter
+
+        c = Counter([s.relation.entity2 for s in suc])
+        for v, count in c.most_common(1):
+            return v
+
+    def query_local_assoc(self, entity, relation):
+        local_decl = self.query_local(e1=entity, rel=relation)
+        from collections import Counter
+
+
+        if len(local_decl) and isinstance(local_decl[0].relation, AssocNum):
+            return sum([l.relation.entity2 for l in local_decl]) / len(local_decl)
+       
+        elif len(local_decl) and isinstance(local_decl[0].relation, AssocOne):
+            c = Counter([l.relation.entity2 for l in local_decl])
+
+            v, count = c.most_common(1)[0]
+
+            return v, count/len(local_decl)
+
+        elif len(local_decl) and isinstance(local_decl[0].relation, Association):
+            c = Counter([l.relation.entity2 for l in local_decl])
+
+            l = []
+            acc = 0
+
+            for v, count in c.most_common():
+                if acc < 0.75:
+                    l.append((v, count/len(local_decl)))
+                    acc+= count/len(local_decl)
+            return l
+
 
 
 def my_list2string(list):
