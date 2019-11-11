@@ -24,6 +24,24 @@ class BayesNet:
                     prob*=(p if val else 1-p)
         return prob
 
+    # Probabilidade conjunta de uma dada conjuncao 
+    # de valores de todas as variaveis da rede
+    def individualProb(self, var, val):
+        variaveis = self.dependencies.keys()
+
+        todas_conj = self.genConjunctions([v for v in variaveis if v != var])
+
+        return sum(self.jointProb(conj + [(var, val)]) for conj in todas_conj)
+       
+    def genConjunctions(self, var_lista):
+        if len(var_lista) == 1:
+            return [[(var_lista[0], True), (var_lista[0], False)]]
+        
+        l = []
+        for r in self.genConjunctions(var_lista[1:]):
+            l.append(r + [(var_lista[0], True)])
+            l.append(r + [(var_lista[0], False)])
+        return l
 
 # Footnote 1:
 # Default arguments are evaluated on function definition,
